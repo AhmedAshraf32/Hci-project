@@ -1,0 +1,13 @@
+Triceratops: A herbivorous dinosaur known for its large bony frill and three horns on its face.
+    
+    Triceratops lived in what is now North America during the late Cretaceous period, around 68 to 66 million years ago.
+    They were one of the last non-avian dinosaur genera to appear before the Cretaceous–Paleogene extinction event.
+    
+    The name Triceratops, which literally means "three-horned face", is derived from the Greek words "tri" meaning three,
+    "keras" meaning horn, and "ops" meaning face. This genus is one of the most recognizable of all dinosaurs and the
+    subject of significant scientific study.
+    
+    Triceratops was a large, quadrupedal herbivore with a frilled skull and three facial horns. They are believed to have
+    lived in herds and displayed complex social behavior. The frill may have been used for defense, display, or
+    thermoregulation. Their teeth were arranged in groups called batteries that formed a shearing surface, enabling them
+    to cut through tough vegetation.
