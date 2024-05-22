@@ -12,7 +12,12 @@ def ar_action():
     messagebox.showinfo("AR", "AR button clicked!")
 
 def tuio_action():
-    messagebox.showinfo("TUIO Markers", "TUIO Markers button clicked!")
+    try:
+        subprocess.Popen(['python', 'glb.py'])  # Change 'glb.py' to the correct path if necessary
+        messagebox.showinfo("TUIO Markers", "TUIO Markers script started!")
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to start TUIO Markers script: {e}")
+
 
 # Function to change button color on hover
 def on_enter(e):

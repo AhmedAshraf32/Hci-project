@@ -24,12 +24,14 @@ animal_sounds = [
     'tahraptor.mp3'
 ]
 
-# Animal info text
-animal_info = [
-    "Triceratops: A herbivorous dinosaur known for its large bony frill and three horns on its face.",
-    "Tyrannosaurus Rex: One of the largest land carnivores of all time, known for its massive jaws and powerful legs.",
-    "Utahraptor: A genus of theropod dinosaur, known for its large sickle-shaped claw on each hindfoot."
-]
+def load_animal_info(index):
+    try:
+        with open(f'info_{index}.txt', 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        return "Information file not found."
+    except Exception as e:
+        return f"Error reading information file: {e}"
 
 # Path to 3D Viewer executable
 three_d_viewer_path = r"C:\Program Files\WindowsApps\Microsoft.Microsoft3DViewer_10.2103.13010.0_x64__8wekyb3d8bbwe\3DViewer.exe"
@@ -56,8 +58,11 @@ def play_sound(index):
 
 # Function to display information text
 def display_info(index):
-    info_text = animal_info[index]
+    info_text = load_animal_info(index)
     info_label.config(text=info_text)
+
+
+    
 
 # Function to switch models
 def switch_model(index):
@@ -76,6 +81,7 @@ def previous_model():
     global current_model_index
     current_model_index = (current_model_index - 1) % len(animal_images)
     switch_model(current_model_index)
+
 
 
 # initialize Pose estimator
@@ -649,7 +655,14 @@ recognizer = Recognizer([SwipeLeftLH,SwipeLeftRH,SwipeRightLH,SwipeRightRH])
 
 Allpoints=[]
 
-
+def is_camera_available():
+    # Attempt to open the camera
+    test_cap = cv2.VideoCapture(0)
+    if not test_cap.isOpened():
+        test_cap.release()
+        return False
+    test_cap.release()
+    return True
 
 def camera_capture():
     global framecnt
@@ -703,16 +716,21 @@ info_label = tk.Label(root, text="", wraplength=500, justify=tk.LEFT)
 info_label.pack(pady=20)
 
 # Bind the 'x' key to switch models
-root.bind('<x>', switch_model)
+root.bind('<x>', lambda event : next_model())
+
+
 
 # Initial display
 display_model(current_model_index)
 play_sound(current_model_index)
 display_info(current_model_index)
 
-# Start the camera capture in a separate thread
-camera_thread = threading.Thread(target=camera_capture)
-camera_thread.start()
+if not is_camera_available():
+    print("Camera is not available. Exiting application.")
+else:
+    camera_thread = threading.Thread(target=camera_capture)
+    camera_thread.start()
+
 
 # Run the Tkinter event loop
 root.mainloop()
